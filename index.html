@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E-commerce Store</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <h1>Our Store</h1>
+        <div class="cart-icon">🛒 <span id="cart-count">0</span></div>
+      </nav>
+    </header>
+    <main>
+      <div class="products-grid" id="products-container">
+        <!-- Products will be dynamically inserted here -->
+      </div>
+    </main>
+    <script>
+      fetch("/products")
+        .then((response) => response.json())
+        .then((products) => {
+          const container = document.getElementById("products-container");
+          products.forEach((product) => {
+            container.innerHTML += `
+                        <div class="product-card">
+                            <img src="${product.image}" alt="${product.name}">
+                            <h3>${product.name}</h3>
+                            <p>${product.description}</p>
+                            <p class="price">$${product.price}</p>
+                            <button onclick="addToCart('${product._id}')">Add to Cart</button>
+                        </div>
+                    `;
+          });
+        });
+    </script>
+  </body>
+</html>

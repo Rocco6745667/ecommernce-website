@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="/">← Continue Shopping</a>
+      </nav>
+    </header>
+    <main>
+      <div class="checkout-container">
+        <h1>Checkout</h1>
+        <div id="cart-items">
+          <!-- Cart items will be displayed here -->
+        </div>
+        <div class="payment-form">
+          <h2>Payment Details</h2>
+          <form id="payment-form" onsubmit="processPayment(event)">
+            <input type="text" placeholder="Card Number" required />
+            <input type="text" placeholder="Expiry Date" required />
+            <input type="text" placeholder="CVV" required />
+            <button type="submit">Complete Purchase</button>
+          </form>
+        </div>
+      </div>
+    </main>
+    <script>
+      function processPayment(event) {
+        event.preventDefault();
+        fetch("/payment", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            // Add payment details here
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.message === "Payment successful") {
+              alert("Order placed successfully!");
+              window.location.href = "/";
+            }
+          });
+      }
+    </script>
+  </body>
+</html>
