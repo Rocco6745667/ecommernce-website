@@ -2,15 +2,13 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
-// MongoDB connection string
 const uri =
   "mongodb+srv://RoccoAli:Club22477!@itec4020.qdnex.mongodb.net/?retryWrites=true&w=majority&appName=ITEC4020";
 
 mongoose
-  .connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error(err));
-
 const ProductSchema = new mongoose.Schema({
   name: { type: String, required: true },
   description: { type: String },
